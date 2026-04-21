@@ -26,6 +26,7 @@ public class CategoryController {
 	}
 	
 	//get all categories
+	//Demo commit
 	@GetMapping
 	public List<CategoryDTO> getAllCategories()
 	{
