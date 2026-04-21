@@ -1,5 +1,7 @@
 package com.bitsnbytes.product.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,23 @@ public class CategoryService {
 	}
 	
 	//get all category
+	public List<CategoryDTO> getAllCategories() {
+		
+		return repo.findAll().stream().map(CategoryMapper::toCategoryDTO).toList();
+	}
+
 	//get category by id
+	public CategoryDTO getCategoryById(Long id) {
+		 Category category = repo.findById(id).orElseThrow(()->new RuntimeException("Category not found"));
+		 return CategoryMapper.toCategoryDTO(category);
+	}
+
+	public String deleteCategory(Long id) {
+		repo.deleteById(id);
+		return "Category deleted successfully";
+	}
+	
+	
+	
 	//delete category
 }
