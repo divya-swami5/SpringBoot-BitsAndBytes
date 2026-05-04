@@ -3,6 +3,7 @@ package com.bitsnbytes.product.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bitsnbytes.product.dto.CategoryDTO;
+import com.bitsnbytes.product.exception.CategoryAlreadyExistsException;
 import com.bitsnbytes.product.service.CategoryService;
 
 @RestController
@@ -35,9 +37,14 @@ public class CategoryController {
 	
 	//create category
 	@PostMapping
-	public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO dto)
+	public ResponseEntity<?> createCategory(@RequestBody CategoryDTO dto)
 	{
-		return  new ResponseEntity<>(service.createCategory(dto),HttpStatus.CREATED);
+		
+		
+		CategoryDTO savedCategory = service.createCategory(dto);
+		
+		return  ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+		
 	}
 	
 	

@@ -26,6 +26,7 @@ public class CategoryMapper {
 		categoryDTO.setProducts(category.getProducts().stream().map(ProductMapper::toProductDTO).toList());
 		
 		return categoryDTO;
+		
 	}
 
 }
